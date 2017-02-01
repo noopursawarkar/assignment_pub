@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="bidApp">
+
+<head>
+
+    <title>BidApp</title>
+    <style>
+        #tblSubs {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            #tblSubs td, #tblSubs th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #tblSubs tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #tblSubs tr:hover {
+                background-color: #ddd;
+            }
+
+            #tblSubs th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #6180c0;
+                color: white;
+            }
+    </style>
+</head>
+
+<body>
+
+    <div id="tblSubs" ng-controller="bidController">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Email ID</th>
+                <th>Updated Date</th>
+                <th>Last Executed Date</th>
+                <th>Tags</th>
+            </tr>
+
+            <tbody data-ng-repeat="sub in responsedata">
+                <tr>
+                    <td>{{sub.id}}</td>
+                    <td>{{sub.name}}</td>
+                    <td>{{sub.datetimes.updated}}</td>
+                    <td>{{sub.datetimes.lastExecuted}}</td>
+                    <td>
+                        <span ng-repeat="tag in sub.tags">{{tag+','}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-default" ng-click="sortData('updated','that');">Sort By Last Updated (Filter By Tag that)</button>
+        <button type="button" class="btn btn-default" ng-click="sortData('lastExecuted','other');">Sort By Last Executed (Filter By Tag other)</button>
+    </div>
+    <h3>Assumptions</h3>
+    <div>  
+        1.	every minute api call should go (used $interval of angular for polling) </br>
+        2.	created one function with pagesize passed as function parameter to get results, which will call api (that param should be sent to api)</br>
+        3.	created function which returns an array,sorted by last updated or sorted by last executed, this function will have another param as tag, which uses angular filter</br>
+        4.  table will show all returned data.</br>
+        5.  two buttons which will sort and filter data and update results in table.</br>
+    </div>
+
+
+
+    <script src="../lib/angular.min.js"></script>
+    <script src="../lib/angular-mocks.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/controller.js"></script>
+    <script src="../app/service.js"></script>
+
+</body>
+</html>
